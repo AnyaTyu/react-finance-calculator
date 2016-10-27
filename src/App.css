@@ -1,0 +1,83 @@
+.App {
+    font-size: 0;
+    background: #FFDDC4;
+}
+
+.left {
+    vertical-align: top;
+    padding: 20px 2%;
+    width: 50%;
+    box-sizing: border-box;
+    display: inline-block;
+}
+
+.right {
+    vertical-align: top;
+    padding: 20px 2%;
+    width: 50%;
+    box-sizing: border-box;
+    display: inline-block;
+}
+
+
+.Сounting {
+    font-size: 12px;
+}
+
+.title {
+    color: #BF92B3;
+    font-size: 22px;
+}
+
+input {
+    outline: none;
+    padding: 5px;
+    margin: 0 5px 0 0;
+    border: 0;
+    border-radius: 5px;
+}
+
+button {
+    outline: none;
+    padding: 5px 10px;
+    border: 0;
+    border-radius: 5px;
+    color: #fff;
+    background: #BF92B3;
+}
+
+table {
+    margin-top: 20px;
+    width: 355px;
+}
+
+th {
+    color: #fff;
+    background: #BF92B3;
+    padding: 5px 10px;
+    border-radius: 5px;
+}
+
+td {
+    color: #000;
+    background: #EAECEB;
+    padding: 5px 10px;
+    border-radius: 5px;
+}
+
+.sum {
+    margin: 10px;
+    color: #BF92B3;
+}
+
+.Notification {
+    cursor: pointer;
+    position: fixed;
+    top: 10px;
+    right: 10px;
+    padding: 15px;
+    border-radius: 5px;
+    background: #FF033E;
+    color: #fff;
+    font-size: 16px;
+}
