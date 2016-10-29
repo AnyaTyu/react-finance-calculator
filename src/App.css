@@ -1,28 +1,38 @@
-.App {
+.app {
     height: 100vh;
     padding: 20px 2%;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
 .left,
 .right {
+    margin-top: 10px;
     vertical-align: top;
-    width: 50%;
+    width: 49%;
     box-sizing: border-box;
     display: inline-block;
+    border: 2px solid;
+    border-radius: 5px;
+    padding: 0 10px 20px;
+}
+
+.right {
+    float: right;
 }
 
 .heading {
     margin: 0;
-    text-decoration: underline;
 }
 
 .title {
     font-size: 22px;
-    text-decoration: underline;
 }
 
-.CommonCounting {
-    padding: 0 0 20px;
+.commonCounting {
+    border: 2px solid;
+    border-radius: 5px;
+    padding: 0 10px 20px;
+    margin-top: 20px;
 }
 
 input {
@@ -72,7 +82,7 @@ td {
     margin: 0;
 }
 
-.Notification {
+.notification {
     cursor: pointer;
     position: fixed;
     top: 10px;
@@ -84,19 +94,48 @@ td {
     font-size: 16px;
 }
 
-.App_theme_pink {
+.app_theme_pink {
     background: #FFDDC4;
 }
 
-.App_theme_pink .heading,
-.App_theme_pink .title,
-.App_theme_pink .sum {
+.app_theme_pink .right,
+.app_theme_pink .left,
+.app_theme_pink .commonCounting{
+    border-color: #BF92B3;
+}
+
+.app_theme_pink .heading,
+.app_theme_pink .title,
+.app_theme_pink .sum {
     color: #BF92B3;
 }
 
-.App_theme_pink .label,
-.App_theme_pink th,
-.App_theme_pink button {
+.app_theme_pink .label,
+.app_theme_pink th,
+.app_theme_pink button {
     color: #fff;
     background: #BF92B3;
+}
+
+.app_theme_blue {
+    background: #AACFE5;
+}
+
+.app_theme_blue .right,
+.app_theme_blue .left,
+.app_theme_blue .commonCounting{
+    border-color: #016AA1;
+}
+
+.app_theme_blue .heading,
+.app_theme_blue .title,
+.app_theme_blue .sum {
+    color: #016AA1;
+}
+
+.app_theme_blue .label,
+.app_theme_blue th,
+.app_theme_blue button {
+    color: #fff;
+    background: #016AA1;
 }

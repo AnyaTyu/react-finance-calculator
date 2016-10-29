@@ -2,15 +2,24 @@ import React, { Component } from 'react';
 import './App.css';
 
 class App extends Component {
+    state = {
+        income: 0,
+        costs: 0
+    };
+
     render() {
+        const { income, costs } = this.state;
+
         return (
-            <div className='App App_theme_pink'>
-                <h1 className="heading">Калькулятор "Мои деньги"</h1>
+            <div className='app app_theme_blue'>
+                <h1 className='heading'>Калькулятор 'Мои деньги'</h1>
                 <div className='left'>
                     <h2 className='title'>Доходы:</h2>
                     <CalculationPlace
                         placeholderText='Зарплата'
                         placeholderCost='30000'
+                        type='income'
+                        bindFunc={ this.handleChildFunc.bind(this) }
                     />
                 </div>
                 <div className='right'>
@@ -18,24 +27,29 @@ class App extends Component {
                     <CalculationPlace
                         placeholderText='Аренда квартиры'
                         placeholderCost='10000'
+                        type='costs'
+                        bindFunc={ this.handleChildFunc.bind(this) }
                     />
                 </div>
-                <CommonCounting />
+                <CommonCounting income={ income } costs={ costs }/>
             </div>
         );
     }
+
+    handleChildFunc (type, sum) { this.setState({ [type]: sum }); }
 }
 
 class CalculationPlace extends Component {
     state = {
         data: [],
+        sum: 0,
         name: '',
         cost: '',
         error: false
     };
 
     render() {
-        const { name, cost, data } = this.state;
+        const { name, cost, data, sum } = this.state;
         const { placeholderText, placeholderCost } = this.props;
 
         return (
@@ -55,7 +69,7 @@ class CalculationPlace extends Component {
                     onChange={ this.handleChange.bind(this) }
                 />
                 <button onClick={ this.handleSubmit.bind(this) }>Добавить</button>
-                <MyTable data={ data } />
+                <MyTable data={ data } sum={ sum } />
                 <Notification ref='notification' />
             </form>
         )
@@ -65,6 +79,8 @@ class CalculationPlace extends Component {
         e.preventDefault();
 
         const { name, cost, data } = this.state;
+        const { type, bindFunc } = this.props;
+        const { notification } = this.refs;
 
         if ( !name || !cost || !parseInt(cost, 10) ) {
             this.refs.notification.handleOpen();
@@ -76,8 +92,13 @@ class CalculationPlace extends Component {
             cost: cost
         });
 
-        this.setState({ data, name: '', cost: '' });
-        this.refs.notification.handleClose();
+        const sum = data.reduce((value, item) => {
+            return value + parseInt(item.cost, 10)
+        }, 0);
+
+        this.setState({ data, name: '', cost: '', sum });
+        bindFunc(type, sum);
+        notification.handleClose();
     }
 
     handleChange(e) {
@@ -90,13 +111,10 @@ class CalculationPlace extends Component {
 
 class MyTable extends Component {
     render() {
-        const { data } = this.props;
-        const sum = data.reduce((value, item) => {
-            return value + parseInt(item.cost, 10)
-        }, 0);
+        const { data, sum } = this.props;
 
         return (
-            <div className='MyTable'>
+            <div className='myTable'>
                 <table>
                     <thead>
                     <tr>
@@ -142,21 +160,21 @@ class Notification extends Component {
         if (!this.state.visible) return null;
 
         return (
-            <div className='Notification' onClick={ this.handleClose.bind(this) }>Не правильно заполнены поля!</div>
+            <div className='notification' onClick={ this.handleClose.bind(this) }>Не правильно заполнены поля!</div>
         )
     }
 }
 
 class CommonCounting extends Component {
     render() {
-        const { income = 0, costs = 0 } = this.props;
+        const { income, costs } = this.props;
         const netIncome = income - costs;
         const dayBudget = netIncome / 30; //TODO: прикрутить месяц
         const monthAccumulation = 0;
         const yearAccumulation = 0;
 
         return (
-            <div className='CommonCounting'>
+            <div className='commonCounting'>
                 <h2 className='title'>Основные подсчеты:</h2>
                 <CommonCountingRow label='Доход' value={ netIncome }/>
                 <CommonCountingRow label='Бюджет на день' value={ dayBudget }/>
@@ -170,7 +188,7 @@ class CommonCounting extends Component {
 class CommonCountingRow extends Component {
     render() {
         return (
-            <div className='CommonCountingRow'>
+            <div className='commonCountingRow'>
                 <div className='label'>{ this.props.label }</div>
                 <input
                     type='text'
