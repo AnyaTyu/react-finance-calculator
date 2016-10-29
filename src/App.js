@@ -1,30 +1,26 @@
 import React, { Component } from 'react';
-import ReactDOM from 'react-dom';
 import './App.css';
 
 class App extends Component {
-  render() {
-    return (
-      <div className='App'>
-          <div className='left'>
-              <Сounting title='Доходы:' placeholderText='Зарплата' placeholderCost='30000'/>
-          </div>
-          <div className='right'>
-              <Сounting title='Обязательные расходы:' placeholderText='Аренда квартиры' placeholderCost='10000'/>
-          </div>
-      </div>
-    );
-  }
-}
-
-class Сounting extends Component {
     render() {
-        const { title, placeholderText, placeholderCost } = this.props;
-
         return (
-            <div className='Сounting'>
-                <h2 className='title'>{title}</h2>
-                <CalculationPlace placeholderText={placeholderText} placeholderCost={placeholderCost} />
+            <div className='App App_theme_pink'>
+                <h1 className="heading">Калькулятор "Мои деньги"</h1>
+                <div className='left'>
+                    <h2 className='title'>Доходы:</h2>
+                    <CalculationPlace
+                        placeholderText='Зарплата'
+                        placeholderCost='30000'
+                    />
+                </div>
+                <div className='right'>
+                    <h2 className='title'>Обязательные расходы:</h2>
+                    <CalculationPlace
+                        placeholderText='Аренда квартиры'
+                        placeholderCost='10000'
+                    />
+                </div>
+                <CommonCounting />
             </div>
         );
     }
@@ -39,27 +35,27 @@ class CalculationPlace extends Component {
     };
 
     render() {
-        const { name, cost, data, error } = this.state;
-        const { placeholderText, placeholderCost} = this.props;
+        const { name, cost, data } = this.state;
+        const { placeholderText, placeholderCost } = this.props;
 
         return (
             <form>
                 <input
                     type='text'
                     name='name'
-                    placeholder={placeholderText}
-                    value={name}
-                    onChange={this.handleChange.bind(this)}
+                    placeholder={ placeholderText }
+                    value={ name }
+                    onChange={ this.handleChange.bind(this) }
                 />
                 <input
                     type='text'
                     name='cost'
-                    placeholder={placeholderCost}
-                    value={cost}
-                    onChange={this.handleChange.bind(this)}
+                    placeholder={ placeholderCost }
+                    value={ cost }
+                    onChange={ this.handleChange.bind(this) }
                 />
-                <button onClick={this.handleSubmit.bind(this)}>Добавить</button>
-                <MyTable data={data} />
+                <button onClick={ this.handleSubmit.bind(this) }>Добавить</button>
+                <MyTable data={ data } />
                 <Notification ref='notification' />
             </form>
         )
@@ -85,7 +81,7 @@ class CalculationPlace extends Component {
     }
 
     handleChange(e) {
-        let { name, value } = e.target;
+        const { name, value } = e.target;
 
         this.setState({ [name]: value });
         this.refs.notification.handleClose();
@@ -108,9 +104,9 @@ class MyTable extends Component {
                         <th>Цена</th>
                     </tr>
                     </thead>
-                    <tbody>{data.map((item, index) => <Row key={index} name={item.name} cost={item.cost} />)}</tbody>
+                    <tbody>{ data.map((item, index) => <Row key={ index } name={ item.name } cost={ item.cost } />) }</tbody>
                 </table>
-                <p className='sum'>Итого: {sum}</p>
+                <p className='sum'>Итого: { sum }</p>
             </div>
         )
     }
@@ -122,15 +118,15 @@ class Row extends Component {
 
         return (
             <tr>
-                <td>{name}</td>
-                <td>{cost}</td>
+                <td>{ name }</td>
+                <td>{ cost }</td>
             </tr>
         )
     }
 }
 
 class Notification extends Component {
-    state= {
+    state = {
         visible: false
     };
 
@@ -143,12 +139,45 @@ class Notification extends Component {
     }
 
     render() {
-        if (!this.state.visible) {
-            return null;
-        }
+        if (!this.state.visible) return null;
 
         return (
-            <div className='Notification' onClick={this.handleClose.bind(this)}>Не правильно заполнены поля!</div>
+            <div className='Notification' onClick={ this.handleClose.bind(this) }>Не правильно заполнены поля!</div>
+        )
+    }
+}
+
+class CommonCounting extends Component {
+    render() {
+        const { income = 0, costs = 0 } = this.props;
+        const netIncome = income - costs;
+        const dayBudget = netIncome / 30; //TODO: прикрутить месяц
+        const monthAccumulation = 0;
+        const yearAccumulation = 0;
+
+        return (
+            <div className='CommonCounting'>
+                <h2 className='title'>Основные подсчеты:</h2>
+                <CommonCountingRow label='Доход' value={ netIncome }/>
+                <CommonCountingRow label='Бюджет на день' value={ dayBudget }/>
+                <CommonCountingRow label='Накопления за месяц' value={ monthAccumulation }/>
+                <CommonCountingRow label='Накопления за год' value={ yearAccumulation }/>
+            </div>
+        )
+    }
+}
+
+class CommonCountingRow extends Component {
+    render() {
+        return (
+            <div className='CommonCountingRow'>
+                <div className='label'>{ this.props.label }</div>
+                <input
+                    type='text'
+                    name='value'
+                    value={ this.props.value }
+                />
+            </div>
         )
     }
 }

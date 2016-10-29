@@ -1,32 +1,28 @@
 .App {
-    font-size: 0;
-    background: #FFDDC4;
-}
-
-.left {
-    vertical-align: top;
+    height: 100vh;
     padding: 20px 2%;
-    width: 50%;
-    box-sizing: border-box;
-    display: inline-block;
 }
 
+.left,
 .right {
     vertical-align: top;
-    padding: 20px 2%;
     width: 50%;
     box-sizing: border-box;
     display: inline-block;
 }
 
-
-.Сounting {
-    font-size: 12px;
+.heading {
+    margin: 0;
+    text-decoration: underline;
 }
 
 .title {
-    color: #BF92B3;
     font-size: 22px;
+    text-decoration: underline;
+}
+
+.CommonCounting {
+    padding: 0 0 20px;
 }
 
 input {
@@ -42,8 +38,6 @@ button {
     padding: 5px 10px;
     border: 0;
     border-radius: 5px;
-    color: #fff;
-    background: #BF92B3;
 }
 
 table {
@@ -51,11 +45,18 @@ table {
     width: 355px;
 }
 
+.label,
 th {
-    color: #fff;
-    background: #BF92B3;
     padding: 5px 10px;
     border-radius: 5px;
+    font-weight: bold;
+    font-size: 12px;
+}
+
+.label {
+    width: 165px;
+    display: inline-block;
+    margin: 5px;
 }
 
 td {
@@ -63,11 +64,12 @@ td {
     background: #EAECEB;
     padding: 5px 10px;
     border-radius: 5px;
+    font-size: 12px;
 }
 
 .sum {
-    margin: 10px;
-    color: #BF92B3;
+    padding: 20px 0 0;
+    margin: 0;
 }
 
 .Notification {
@@ -80,4 +82,21 @@ td {
     background: #FF033E;
     color: #fff;
     font-size: 16px;
+}
+
+.App_theme_pink {
+    background: #FFDDC4;
+}
+
+.App_theme_pink .heading,
+.App_theme_pink .title,
+.App_theme_pink .sum {
+    color: #BF92B3;
+}
+
+.App_theme_pink .label,
+.App_theme_pink th,
+.App_theme_pink button {
+    color: #fff;
+    background: #BF92B3;
 }
